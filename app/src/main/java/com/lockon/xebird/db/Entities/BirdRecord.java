@@ -1,4 +1,4 @@
-package com.lockon.xebird.db;
+package com.lockon.xebird.db.Entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;

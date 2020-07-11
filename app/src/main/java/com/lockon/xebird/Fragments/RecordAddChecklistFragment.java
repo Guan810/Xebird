@@ -1,11 +1,10 @@
-package com.lockon.xebird;
+package com.lockon.xebird.Fragments;
 
 import android.annotation.SuppressLint;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.TimeZone;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,20 +27,19 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.room.Ignore;
 
-import com.lockon.xebird.db.BirdRecord;
+import com.lockon.xebird.R;
 import com.lockon.xebird.db.BirdRecordDataBase;
-import com.lockon.xebird.db.Checklist;
+import com.lockon.xebird.db.Entities.BirdRecord;
+import com.lockon.xebird.db.Entities.Checklist;
 import com.lockon.xebird.other.Tracker;
 import com.lockon.xebird.other.XeBirdHandler;
 
 import org.json.JSONException;
 
-import java.net.MalformedURLException;
 import java.util.List;
 
-public class ChecklistFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback {
+public class RecordAddChecklistFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = "ChecklistFragment";
 
     public TextView timerTV, startAtTv;
@@ -64,7 +62,7 @@ public class ChecklistFragment extends Fragment implements ActivityCompat.OnRequ
     public static BirdRecordDataBase db;
 
 
-    public ChecklistFragment() {
+    public RecordAddChecklistFragment() {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -110,7 +108,7 @@ public class ChecklistFragment extends Fragment implements ActivityCompat.OnRequ
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.i(TAG, "onCreateView!");
-        return inflater.inflate(R.layout.fragment_checklist, container, false);
+        return inflater.inflate(R.layout.fragment_record_add_checklist, container, false);
     }
 
     final public String getTAG() {

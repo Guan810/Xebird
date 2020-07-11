@@ -1,45 +1,49 @@
-package com.lockon.xebird;
+package com.lockon.xebird.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lockon.xebird.R;
+import com.lockon.xebird.ViewAdapters.ProfileShowBirdRecordRecyclerViewAdapter;
 import com.lockon.xebird.db.BirdRecordDataBase;
-import com.lockon.xebird.db.Checklist;
-import com.lockon.xebird.other.ChecklistItemRecyclerViewAdapter;
+import com.lockon.xebird.db.Entities.BirdRecord;
 
+import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * A fragment representing a list of Items.
  */
-public class InfoShowChecklistFragment extends Fragment {
+public class ProfileShowBirdRecordFragment extends Fragment {
+    private final static String TAG = "BirdRecordFragment";
 
-    private static final String NUM = "column-count";
+    // TODO: Customize parameter argument names
+    private static final String ARG_COLUMN_COUNT = "column-count";
+    // TODO: Customize parameters
     private int mColumnCount = 1;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public InfoShowChecklistFragment() {
+    public ProfileShowBirdRecordFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static InfoShowChecklistFragment newInstance(int columnCount) {
-        InfoShowChecklistFragment fragment = new InfoShowChecklistFragment();
+    public static ProfileShowBirdRecordFragment newInstance(int columnCount) {
+        ProfileShowBirdRecordFragment fragment = new ProfileShowBirdRecordFragment();
         Bundle args = new Bundle();
-        args.putInt(NUM, columnCount);
+        args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,14 +53,22 @@ public class InfoShowChecklistFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(NUM);
+            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_show_checklist, container, false);
+        View view = inflater.inflate(R.layout.fragment_record_list, container, false);
+        List<BirdRecord> whatget = new ArrayList<>();
+        if (getArguments() != null) {
+            String checklistId = (String) getArguments().getSerializable("click");
+            Log.i(TAG, "onCreateView: get chectlist id " + checklistId);
+            BirdRecordDataBase bd = BirdRecordDataBase.getInstance(requireContext());
+            whatget = bd.myDao().getAllByCid(checklistId);
+
+        }
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -67,13 +79,7 @@ public class InfoShowChecklistFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-
-            BirdRecordDataBase bd = BirdRecordDataBase.getInstance(requireContext());
-            List<Checklist> whatget = bd.myDao().getAllChecklist();
-
-
-            recyclerView.setAdapter(new ChecklistItemRecyclerViewAdapter(this, whatget));
-            recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL));
+            recyclerView.setAdapter(new ProfileShowBirdRecordRecyclerViewAdapter(whatget, requireContext()));
         }
         return view;
     }

@@ -1,4 +1,4 @@
-package com.lockon.xebird.other;
+package com.lockon.xebird.ViewAdapters;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +10,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lockon.xebird.InfoShowChecklistFragment;
+import com.lockon.xebird.Fragments.ProfileShowChecklistFragment;
 import com.lockon.xebird.R;
-import com.lockon.xebird.db.Checklist;
+import com.lockon.xebird.db.Entities.Checklist;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -20,12 +20,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class ChecklistItemRecyclerViewAdapter extends RecyclerView.Adapter<ChecklistItemRecyclerViewAdapter.ViewHolder> {
+public class ProfileShowChecklistRecyclerViewAdapter extends RecyclerView.Adapter<ProfileShowChecklistRecyclerViewAdapter.ViewHolder> {
     public final SimpleDateFormat timeFormat;
-    private final InfoShowChecklistFragment fragment;
+    private final ProfileShowChecklistFragment fragment;
     private final List<Checklist> mValues;
 
-    public ChecklistItemRecyclerViewAdapter(InfoShowChecklistFragment fragment, List<Checklist> items) {
+    public ProfileShowChecklistRecyclerViewAdapter(ProfileShowChecklistFragment fragment, List<Checklist> items) {
         this.fragment = fragment;
         mValues = items;
         timeFormat = new SimpleDateFormat("yyyy年MM月dd日",
@@ -39,7 +39,7 @@ public class ChecklistItemRecyclerViewAdapter extends RecyclerView.Adapter<Check
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_show_checklist_fragment, parent, false);
+                .inflate(R.layout.item_profile_show_checklist, parent, false);
         return new ViewHolder(view);
     }
 

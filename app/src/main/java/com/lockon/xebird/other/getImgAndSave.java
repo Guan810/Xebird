@@ -26,11 +26,13 @@ public class getImgAndSave implements Runnable {
     private final String input;
     private final String TAG = "WebRequest";
     private final Handler handler;
-    private final File path2Img;
+    private final File path2Save;
+    private boolean isPic;
 
-    public getImgAndSave(String path, int index, String nameLA, Handler handler, File path2Img) {
+    public getImgAndSave(String path, int index, String nameLA, Handler handler, File path2Save) {
         String DMP1;
         Path = path;
+        isPic = true;
         switch (Path) {
             case "Descriptive_graph":
                 DMP1 = "-D-";
@@ -41,6 +43,10 @@ public class getImgAndSave implements Runnable {
             case "Photos":
                 DMP1 = "-P-";
                 break;
+            case "Voice":
+                DMP1 = "-V-";
+                isPic = false;
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + Path);
         }
@@ -48,66 +54,108 @@ public class getImgAndSave implements Runnable {
         this.index = index;
         this.input = nameLA.replace(" ", "_");
         this.handler = handler;
-        this.path2Img = path2Img;
+        this.path2Save = path2Save;
     }
 
     @Override
     public void run() {
 
-        if (!path2Img.exists()) {
-            boolean a = path2Img.mkdirs();
+        if (!path2Save.exists()) {
+            boolean a = path2Save.mkdirs();
             Log.i(TAG, "run: create path " + a);
         }
 
-        String picName = input + DMP + index + ".jpg";
-        File localImg = new File(path2Img, picName.replace("-", "_"));
-        Bitmap bitmap = null;
-        if (!localImg.exists()) {
-            Log.i(TAG, "onClick: local file dont exist");
-            String totalWeb = Host + Path + "/" + picName;
-            Log.i(TAG, "getImgFromWeb: download from " + totalWeb);
-            try {
-                //网络请求
-                URL url = new URL(totalWeb);
-                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-                conn.setConnectTimeout(6000);//设置超时
-                conn.setDoInput(true);
-                conn.setUseCaches(false);//不缓存
-                Log.i(TAG, "getImgFromWeb: download begin");
-                conn.connect();
-                InputStream is = conn.getInputStream();//获得图片的数据流
-                bitmap = BitmapFactory.decodeStream(is);//读取图像数据
-                is.close();
-                Log.i(TAG, "getImgFromWeb: download end");
+        if (isPic) {
+            String picName = input + DMP + index + ".jpg";
+            File localImg = new File(path2Save, picName.replace("-", "_"));
+            Bitmap bitmap = null;
+            if (!localImg.exists()) {
+                Log.i(TAG, "onClick: local file dont exist");
+                String totalWeb = Host + Path + "/" + picName;
+                Log.i(TAG, "getImgFromWeb: download from " + totalWeb);
+                try {
+                    //网络请求
+                    URL url = new URL(totalWeb);
+                    HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+                    conn.setConnectTimeout(6000);//设置超时
+                    conn.setDoInput(true);
+                    conn.setUseCaches(false);//不缓存
+                    Log.i(TAG, "getImgFromWeb: download begin");
+                    conn.connect();
+                    InputStream is = conn.getInputStream();//获得图片的数据流
+                    bitmap = BitmapFactory.decodeStream(is);//读取图像数据
+                    is.close();
+                    Log.i(TAG, "getImgFromWeb: download end");
 
-                Log.i(TAG, "getImgFromWeb: save pic to local file " + localImg.toString());
-                FileOutputStream bos = new FileOutputStream(localImg);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
-                bos.flush();
-                bos.close();
-                Log.i(TAG, "getImgFromWeb: save pic to local file success");
-            } catch (IOException e) {
-                if (bitmap == null) {
-                    Log.i(TAG, "getImgFromWeb: get pic from web failed");
-                } else {
-                    Log.i(TAG, "getImgFromWeb: save pic to local file failed");
+                    Log.i(TAG, "getImgFromWeb: save pic to local file " + localImg.toString());
+                    FileOutputStream bos = new FileOutputStream(localImg);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+                    bos.flush();
+                    bos.close();
+                    Log.i(TAG, "getImgFromWeb: save pic to local file success");
+                } catch (IOException e) {
+                    if (bitmap == null) {
+                        Log.i(TAG, "getImgFromWeb: get pic from web failed");
+                    } else {
+                        Log.i(TAG, "getImgFromWeb: save pic to local file failed");
+                    }
+                    e.printStackTrace();
                 }
-                e.printStackTrace();
+            } else {
+                bitmap = BitmapFactory.decodeFile(localImg.getAbsolutePath());
+                Log.i(TAG, "getImgFromLocal: get success");
+            }
+            if (bitmap == null) {
+                handler.sendEmptyMessage(SETNULLBITMAP);
+                Log.i(TAG, "getImgFromWeb: send message");
+            } else {
+                Message msg = Message.obtain(handler);
+                msg.what = SETBITMAP;
+                msg.obj = bitmap;
+                Log.i(TAG, "getImgFromWeb: send message");
+                msg.sendToTarget();
             }
         } else {
-            bitmap = BitmapFactory.decodeFile(localImg.getAbsolutePath());
-            Log.i(TAG, "getImgFromLocal: get success");
-        }
-        if (bitmap == null) {
-            handler.sendEmptyMessage(SETNULLBITMAP);
-            Log.i(TAG, "getImgFromWeb: send message");
-        } else {
+            String soundName = input + DMP + index + ".mp3";
+            File localSound = new File(path2Save, soundName.replace("-", "_"));
+            if (!localSound.exists()) {
+                Log.i(TAG, "onClick: local file dont exist");
+                String totalWeb = Host + Path + "/" + soundName;
+                Log.i(TAG, "getSoundFromWeb: download from " + totalWeb);
+                try {
+                    //网络请求
+                    URL url = new URL(totalWeb);
+                    HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+                    conn.setConnectTimeout(6000);//设置超时
+                    conn.setDoInput(true);
+                    conn.setUseCaches(false);//不缓存
+                    Log.i(TAG, "getSoundFromWeb: download begin");
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    Log.i(TAG, "getSoundFromWeb: download end");
+
+                    Log.i(TAG, "getSoundFromWeb: save sound to local file " + localSound.toString());
+                    FileOutputStream bos = new FileOutputStream(localSound);
+                    byte[] buffer = new byte[1024 * 1024];
+                    while (is.read(buffer) != -1) {
+                        bos.write(buffer);
+                    }
+                    bos.flush();
+                    bos.close();
+                    is.close();
+                    Log.i(TAG, "getSoundFromWeb: save pic to local file success");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.i(TAG, "getSoundFromLocal: get success");
+            }
             Message msg = Message.obtain(handler);
-            msg.what = SETBITMAP;
-            msg.obj = bitmap;
-            Log.i(TAG, "getImgFromWeb: send message");
+            msg.what = XeBirdHandler.SETSOUND;
+            msg.obj = localSound.getAbsolutePath();
             msg.sendToTarget();
         }
+
     }
 }
 

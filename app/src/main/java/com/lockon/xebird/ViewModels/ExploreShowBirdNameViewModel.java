@@ -1,15 +1,15 @@
-package com.lockon.xebird;
+package com.lockon.xebird.ViewModels;
 
 import android.text.Editable;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.lockon.xebird.db.BirdData;
+import com.lockon.xebird.db.Entities.BirdData;
 
 import java.util.List;
 
-public class InfoShowNameViewModel extends ViewModel {
+public class ExploreShowBirdNameViewModel extends ViewModel {
     private MutableLiveData<List<BirdData>> BirdDatas;
     private MutableLiveData<Editable> EditText;
 

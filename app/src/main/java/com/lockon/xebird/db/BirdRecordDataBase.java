@@ -6,6 +6,10 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.lockon.xebird.db.Daos.BirdRecordDao;
+import com.lockon.xebird.db.Entities.BirdRecord;
+import com.lockon.xebird.db.Entities.Checklist;
+
 @Database(entities = {BirdRecord.class, Checklist.class}, version = 1)
 public abstract class BirdRecordDataBase extends RoomDatabase {
 

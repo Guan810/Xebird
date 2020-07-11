@@ -1,4 +1,4 @@
-package com.lockon.xebird;
+package com.lockon.xebird.ViewAdapters;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +11,11 @@ import android.widget.TextView;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lockon.xebird.db.BirdData;
-import com.lockon.xebird.db.BirdRecord;
+import com.lockon.xebird.Fragments.RecordShowBirdDataFragment;
+import com.lockon.xebird.R;
 import com.lockon.xebird.db.BirdRecordDataBase;
+import com.lockon.xebird.db.Entities.BirdData;
+import com.lockon.xebird.db.Entities.BirdRecord;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,13 +25,13 @@ import java.util.List;
  * {@link RecyclerView.Adapter} that can display a {@link BirdRecord}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyBirdRecyclerViewAdapter extends RecyclerView.Adapter<MyBirdRecyclerViewAdapter.ViewHolder> {
+public class RecordShowBirdDataRecyclerViewAdapter extends RecyclerView.Adapter<RecordShowBirdDataRecyclerViewAdapter.ViewHolder> {
 
-    private final BirdlistFragment fragment;
+    private final RecordShowBirdDataFragment fragment;
     public List<BirdData> mList;
 
 
-    public MyBirdRecyclerViewAdapter(BirdlistFragment fragment, List<BirdData> items) {
+    public RecordShowBirdDataRecyclerViewAdapter(RecordShowBirdDataFragment fragment, List<BirdData> items) {
         this.fragment = fragment;
         this.mList = items;
     }
@@ -43,7 +45,7 @@ public class MyBirdRecyclerViewAdapter extends RecyclerView.Adapter<MyBirdRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_bird_list, parent, false);
+                .inflate(R.layout.item_record_show_bird_data, parent, false);
         return new ViewHolder(view);
     }
 
@@ -52,8 +54,8 @@ public class MyBirdRecyclerViewAdapter extends RecyclerView.Adapter<MyBirdRecycl
         holder.birdData = mList.get(position);
         holder.name.setText(mList.get(position).getNameCN());
         holder.family.setText(mList.get(position).getFamliyCN());
-        holder.details.setOnClickListener(new MyBirdRecyclerViewAdapter.DetailsListener(mList.get(position)));
-        holder.add_birdRecord.setOnClickListener(new MyBirdRecyclerViewAdapter.AddBirdRecordListener(mList.get(position)));
+        holder.details.setOnClickListener(new RecordShowBirdDataRecyclerViewAdapter.DetailsListener(mList.get(position)));
+        holder.add_birdRecord.setOnClickListener(new RecordShowBirdDataRecyclerViewAdapter.AddBirdRecordListener(mList.get(position)));
     }
 
     @Override

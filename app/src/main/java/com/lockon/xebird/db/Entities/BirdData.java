@@ -1,4 +1,4 @@
-package com.lockon.xebird.db;
+package com.lockon.xebird.db.Entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

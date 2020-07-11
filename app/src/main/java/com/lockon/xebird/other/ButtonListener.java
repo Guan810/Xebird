@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.lockon.xebird.R;
 import com.lockon.xebird.db.BirdBaseDataBase;
-import com.lockon.xebird.db.BirdData;
+import com.lockon.xebird.db.Entities.BirdData;
 
 import java.io.File;
 import java.util.List;

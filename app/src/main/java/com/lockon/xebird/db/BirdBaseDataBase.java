@@ -6,15 +6,19 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities={BirdData.class},version = 1)
+import com.lockon.xebird.db.Daos.BirdDataDao;
+import com.lockon.xebird.db.Entities.BirdData;
+
+@Database(entities = {BirdData.class}, version = 1)
 public abstract class BirdBaseDataBase extends RoomDatabase {
 
     public abstract BirdDataDao myDao();
-    private final static String DBNAME="Bird.bd";
+
+    private final static String DBNAME = "Bird.bd";
     private volatile static BirdBaseDataBase BirdBaseDataBase;
 
-    public static synchronized BirdBaseDataBase getInstance(Context context){
-        if(BirdBaseDataBase==null){
+    public static synchronized BirdBaseDataBase getInstance(Context context) {
+        if (BirdBaseDataBase == null) {
             return create(context);
         }else{
             return BirdBaseDataBase;

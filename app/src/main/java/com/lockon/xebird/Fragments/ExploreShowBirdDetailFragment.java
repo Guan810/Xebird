@@ -1,4 +1,4 @@
-package com.lockon.xebird;
+package com.lockon.xebird.Fragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +13,10 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.lockon.xebird.db.BirdData;
+import com.lockon.xebird.R;
+import com.lockon.xebird.db.Entities.BirdData;
 
-public class InfoShowDetailFragment extends Fragment {
+public class ExploreShowBirdDetailFragment extends Fragment {
 
     private final String TAG = "DetailInfo";
     CollectionAdapter collectionAdapter;
@@ -27,7 +28,7 @@ public class InfoShowDetailFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info_detail, container, false);
+        return inflater.inflate(R.layout.fragment_explore_show_bird_detail, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class InfoShowDetailFragment extends Fragment {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            Fragment fragment = new CollectFragment();
+            Fragment fragment = new ExploreViewPagerFragment();
             Bundle args = new Bundle();
             args.putSerializable("BirdData", birdData);
             args.putInt("Position", position);

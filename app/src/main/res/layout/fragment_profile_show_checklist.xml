@@ -10,5 +10,5 @@
     android:background="#ffffff"
     android:clipChildren="true"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".InfoShowChecklistFragment"
-    tools:listitem="@layout/item_show_checklist_fragment" />
+    tools:context=".Fragments.ProfileShowChecklistFragment"
+    tools:listitem="@layout/item_profile_show_checklist" />

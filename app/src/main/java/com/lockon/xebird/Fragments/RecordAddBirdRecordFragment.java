@@ -1,4 +1,4 @@
-package com.lockon.xebird;
+package com.lockon.xebird.Fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -16,22 +16,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.lockon.xebird.db.BirdData;
-import com.lockon.xebird.db.BirdRecord;
+import com.lockon.xebird.R;
 import com.lockon.xebird.db.BirdRecordDataBase;
+import com.lockon.xebird.db.Entities.BirdData;
+import com.lockon.xebird.db.Entities.BirdRecord;
 import com.lockon.xebird.other.Tracker;
 
 import org.json.JSONException;
 
-import java.net.MalformedURLException;
-import java.util.Objects;
-
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AddBirdRecordFragment#newInstance} factory method to
+ * Use the {@link RecordAddBirdRecordFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddBirdRecordFragment extends Fragment {
+public class RecordAddBirdRecordFragment extends Fragment {
     private final String TAG = "AddBirdRecordFragment";
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,13 +44,13 @@ public class AddBirdRecordFragment extends Fragment {
     private Tracker tracker;
     private String addressHint;
 
-    public AddBirdRecordFragment() {
+    public RecordAddBirdRecordFragment() {
         // Required empty public constructor
     }
 
-    public static AddBirdRecordFragment newInstance(
+    public static RecordAddBirdRecordFragment newInstance(
             BirdData birdData, BirdRecord birdRecord) {
-        AddBirdRecordFragment fragment = new AddBirdRecordFragment();
+        RecordAddBirdRecordFragment fragment = new RecordAddBirdRecordFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_BirdData, birdData);
         args.putSerializable(ARG_BirdRecord, birdRecord);
@@ -74,7 +72,7 @@ public class AddBirdRecordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_bird_record, container, false);
+        return inflater.inflate(R.layout.fragment_record_add_bird_record, container, false);
     }
 
     @SuppressLint("SetTextI18n")

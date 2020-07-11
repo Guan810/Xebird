@@ -14,11 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.lockon.xebird.BirdlistFragment;
-import com.lockon.xebird.ChecklistFragment;
-import com.lockon.xebird.CollectFragment;
+import com.lockon.xebird.Fragments.ExploreViewPagerFragment;
+import com.lockon.xebird.Fragments.RecordAddChecklistFragment;
+import com.lockon.xebird.Fragments.RecordShowBirdDataFragment;
 import com.lockon.xebird.R;
-import com.lockon.xebird.db.BirdData;
+import com.lockon.xebird.db.Entities.BirdData;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -35,6 +35,7 @@ public class XeBirdHandler {
     public static final int SETNULLBITMAP = 3;
     public static final int INFONAME = 4;
     public static final int INFODETAIL = 5;
+    public static final int SETSOUND = 6;
 
     static abstract class BaseHandler extends Handler {
         public WeakReference<Fragment> mFragment;
@@ -43,14 +44,14 @@ public class XeBirdHandler {
 
 
     public static class InfoDetailHandler extends BaseHandler {
-        public InfoDetailHandler(CollectFragment f) {
+        public InfoDetailHandler(ExploreViewPagerFragment f) {
             this.mFragment = new WeakReference<Fragment>(f);
             this.TAG = f.getTAG();
         }
 
         @Override
         public void handleMessage(@NonNull Message msg) {
-            CollectFragment f = (CollectFragment) mFragment.get();
+            ExploreViewPagerFragment f = (ExploreViewPagerFragment) mFragment.get();
             assert f != null;
             switch (msg.what) {
                 case SETBITMAP:
@@ -60,19 +61,24 @@ public class XeBirdHandler {
                 case SETNULLBITMAP:
                     Log.i(TAG, "handleMessage: set NULL bitmap");
                     f.imageView.setImageResource(no_bitmap);
+                    break;
+                case SETSOUND:
+                    Log.i(TAG, "handleMessage: set sound file");
+                    f.soundId = f.sp.load((String) msg.obj, 0);
+                    break;
             }
         }
     }
 
     public static class BirdlistHandler extends BaseHandler {
-        public BirdlistHandler(BirdlistFragment fragment) {
+        public BirdlistHandler(RecordShowBirdDataFragment fragment) {
             this.mFragment = new WeakReference<Fragment>(fragment);
             this.TAG = fragment.getTAG();
         }
 
         @Override
         public void handleMessage(@NonNull Message msg) {
-            BirdlistFragment f = (BirdlistFragment) mFragment.get();
+            RecordShowBirdDataFragment f = (RecordShowBirdDataFragment) mFragment.get();
             assert f != null;
             switch (msg.what) {
                 case SETNULLTEXT:
@@ -106,7 +112,7 @@ public class XeBirdHandler {
         //用1000来代表经纬度错误返回值
         private final double FailedResult = 1000;
 
-        public TrackerHandler(ChecklistFragment fragment) {
+        public TrackerHandler(RecordAddChecklistFragment fragment) {
             this.mFragment = new WeakReference<Fragment>(fragment);
             this.TAG = fragment.getTAG();
         }
@@ -114,7 +120,7 @@ public class XeBirdHandler {
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public void handleMessage(Message msg) {
-            ChecklistFragment f = (ChecklistFragment) mFragment.get();
+            RecordAddChecklistFragment f = (RecordAddChecklistFragment) mFragment.get();
             super.handleMessage(msg);
             switch (msg.what) {
                 case msgTime:

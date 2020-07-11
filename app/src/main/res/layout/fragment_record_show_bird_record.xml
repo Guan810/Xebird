@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BirdlistFragment">
+    tools:context=".Fragments.RecordShowBirdDataFragment">
 
     <LinearLayout
         android:id="@+id/rough_info"
@@ -31,8 +31,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             app:layoutManager="LinearLayoutManager"
-            tools:context=".BirdlistFragment"
-            tools:listitem="@layout/fragment_bird_list" />
+            tools:context=".Fragments.RecordShowBirdDataFragment"
+            tools:listitem="@layout/item_record_show_bird_data" />
 
     </LinearLayout>
 

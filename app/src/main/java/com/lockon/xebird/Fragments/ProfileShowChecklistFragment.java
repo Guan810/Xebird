@@ -1,48 +1,46 @@
-package com.lockon.xebird;
+package com.lockon.xebird.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lockon.xebird.db.BirdRecord;
+import com.lockon.xebird.R;
+import com.lockon.xebird.ViewAdapters.ProfileShowChecklistRecyclerViewAdapter;
 import com.lockon.xebird.db.BirdRecordDataBase;
-import com.lockon.xebird.other.MyBirdRecordRecyclerViewAdapter;
+import com.lockon.xebird.db.Entities.Checklist;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * A fragment representing a list of Items.
  */
-public class BirdRecordFragment extends Fragment {
-    private final static String TAG = "BirdRecordFragment";
+public class ProfileShowChecklistFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
+    private static final String NUM = "column-count";
     private int mColumnCount = 1;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public BirdRecordFragment() {
+    public ProfileShowChecklistFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static BirdRecordFragment newInstance(int columnCount) {
-        BirdRecordFragment fragment = new BirdRecordFragment();
+    public static ProfileShowChecklistFragment newInstance(int columnCount) {
+        ProfileShowChecklistFragment fragment = new ProfileShowChecklistFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putInt(NUM, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,22 +50,14 @@ public class BirdRecordFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            mColumnCount = getArguments().getInt(NUM);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_record_list, container, false);
-        List<BirdRecord> whatget = new ArrayList<>();
-        if (getArguments() != null) {
-            String checklistId = (String) getArguments().getSerializable("click");
-            Log.i(TAG, "onCreateView: get chectlist id " + checklistId);
-            BirdRecordDataBase bd = BirdRecordDataBase.getInstance(requireContext());
-            whatget = bd.myDao().getAllByCid(checklistId);
-
-        }
+        View view = inflater.inflate(R.layout.fragment_profile_show_checklist, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -78,7 +68,13 @@ public class BirdRecordFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyBirdRecordRecyclerViewAdapter(whatget, requireContext()));
+
+            BirdRecordDataBase bd = BirdRecordDataBase.getInstance(requireContext());
+            List<Checklist> whatget = bd.myDao().getAllChecklist();
+
+
+            recyclerView.setAdapter(new ProfileShowChecklistRecyclerViewAdapter(this, whatget));
+            recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL));
         }
         return view;
     }

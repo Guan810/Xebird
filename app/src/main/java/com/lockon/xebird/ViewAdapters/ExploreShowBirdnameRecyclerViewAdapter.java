@@ -1,4 +1,4 @@
-package com.lockon.xebird.other;
+package com.lockon.xebird.ViewAdapters;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,17 +13,17 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lockon.xebird.InfoShowNameFragment;
+import com.lockon.xebird.Fragments.ExploreShowBirdNameFragment;
 import com.lockon.xebird.R;
-import com.lockon.xebird.db.BirdData;
+import com.lockon.xebird.db.Entities.BirdData;
 
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
+public class ExploreShowBirdnameRecyclerViewAdapter extends RecyclerView.Adapter<ExploreShowBirdnameRecyclerViewAdapter.ViewHolder> {
     public List<BirdData> mList;
     private Fragment f;
 
-    public ItemAdapter(List<BirdData> mList, InfoShowNameFragment f) {
+    public ExploreShowBirdnameRecyclerViewAdapter(List<BirdData> mList, ExploreShowBirdNameFragment f) {
         this.mList = mList;
         this.f = f;
     }
@@ -36,7 +36,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ConstraintLayout v = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_info_show_name_fragment, parent, false);
+        ConstraintLayout v = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_explore_show_bird_name, parent, false);
         return new ViewHolder(v);
     }
 
@@ -86,7 +86,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             Bundle bundle = new Bundle();
 
             bundle.putSerializable("click", birdData);
-            Log.i(InfoShowNameFragment.getTAG(), "onClick: click on " + birdData.getNameCN());
+            Log.i(ExploreShowBirdNameFragment.getTAG(), "onClick: click on " + birdData.getNameCN());
             NavHostFragment.findNavController(f).navigate(R.id.InfoShowDetailFragment, bundle);
         }
     }

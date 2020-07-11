@@ -1,9 +1,5 @@
-package com.lockon.xebird.db;
+package com.lockon.xebird.db.Entities;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,14 +7,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.lockon.xebird.other.Tracker;
-
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-
-import java.net.MalformedURLException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 @Entity(tableName = "Checklist")
 public class Checklist {

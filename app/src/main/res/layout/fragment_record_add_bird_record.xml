@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddBirdRecordFragment">
+    tools:context=".Fragments.RecordAddBirdRecordFragment">
 
     <Button
         android:id="@+id/auto_fill_button2"

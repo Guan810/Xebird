@@ -1,4 +1,4 @@
-package com.lockon.xebird.other;
+package com.lockon.xebird.ViewAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,18 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lockon.xebird.R;
 import com.lockon.xebird.db.BirdBaseDataBase;
-import com.lockon.xebird.db.BirdRecord;
+import com.lockon.xebird.db.Entities.BirdRecord;
 
 import java.util.List;
 
-public class MyBirdRecordRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ProfileShowBirdRecordRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int HEADER = 0;
     public static final int LIST_ITEM = 1;
     private final List<BirdRecord> mValues;
     private final Context context;
 
-    public MyBirdRecordRecyclerViewAdapter(List<BirdRecord> items, Context context) {
+    public ProfileShowBirdRecordRecyclerViewAdapter(List<BirdRecord> items, Context context) {
         mValues = items;
         this.context = context;
     }
@@ -41,11 +41,11 @@ public class MyBirdRecordRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
         View view;
         if (viewType == LIST_ITEM) {
             view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_show_record_fragment, parent, false);
+                    .inflate(R.layout.item_profile_show_record_content, parent, false);
             return new ListViewHolder(view);
         } else {
             view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_show_birdrecord_header, parent, false);
+                    .inflate(R.layout.item_profile_show_birdrecord_header, parent, false);
             return new HeaderViewHolder(view);
         }
 

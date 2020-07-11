@@ -1,4 +1,4 @@
-package com.lockon.xebird;
+package com.lockon.xebird.Fragments;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+
+import com.lockon.xebird.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 

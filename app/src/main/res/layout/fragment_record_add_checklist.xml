@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:layout_marginHorizontal="32dp"
-    tools:context=".ChecklistFragment">
+    tools:context=".Fragments.RecordAddChecklistFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

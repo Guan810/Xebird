@@ -1,4 +1,4 @@
-package com.lockon.xebird;
+package com.lockon.xebird.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,13 +11,13 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lockon.xebird.R;
+import com.lockon.xebird.ViewAdapters.RecordShowBirdDataRecyclerViewAdapter;
 import com.lockon.xebird.db.BirdBaseDataBase;
-import com.lockon.xebird.db.BirdData;
-import com.lockon.xebird.db.BirdRecordDataBase;
+import com.lockon.xebird.db.Entities.BirdData;
 import com.lockon.xebird.other.ButtonListener;
 import com.lockon.xebird.other.History;
 import com.lockon.xebird.other.XeBirdHandler;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 /**
  * A fragment representing a list of birds to add a bird record.
  */
-public class BirdlistFragment extends Fragment {
+public class RecordShowBirdDataFragment extends Fragment {
     private static final String TAG = "BirdlistFragment";
 
     private static final String ARG_CHECKLIST_ID = "checklistId";
@@ -36,18 +36,18 @@ public class BirdlistFragment extends Fragment {
     public String checklistId;
 
     public static XeBirdHandler.BirdlistHandler birdlistHandler;
-    public MyBirdRecyclerViewAdapter mAdapter;
+    public RecordShowBirdDataRecyclerViewAdapter mAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public BirdlistFragment() {
+    public RecordShowBirdDataFragment() {
     }
 
     @SuppressWarnings("unused")
-    public static BirdlistFragment newInstance(String checklistId) {
-        BirdlistFragment fragment = new BirdlistFragment();
+    public static RecordShowBirdDataFragment newInstance(String checklistId) {
+        RecordShowBirdDataFragment fragment = new RecordShowBirdDataFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_CHECKLIST_ID, checklistId);
         fragment.setArguments(args);
@@ -69,7 +69,7 @@ public class BirdlistFragment extends Fragment {
         checklistId = getArguments().getString("checklistId");
 
 
-        View mView = inflater.inflate(R.layout.fragment_birdlist_list,
+        View mView = inflater.inflate(R.layout.fragment_record_show_bird_record,
                 container, false);
         View view = mView.findViewById(R.id.birdlist_list);
         // Set the adapter
@@ -78,7 +78,7 @@ public class BirdlistFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            mAdapter = new MyBirdRecyclerViewAdapter(this, new ArrayList<BirdData>());
+            mAdapter = new RecordShowBirdDataRecyclerViewAdapter(this, new ArrayList<BirdData>());
             recyclerView.setAdapter(mAdapter);
         }
         return mView;

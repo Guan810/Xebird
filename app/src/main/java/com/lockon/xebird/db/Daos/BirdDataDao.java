@@ -1,7 +1,9 @@
-package com.lockon.xebird.db;
+package com.lockon.xebird.db.Daos;
 
 import androidx.room.Dao;
 import androidx.room.Query;
+
+import com.lockon.xebird.db.Entities.BirdData;
 
 import java.util.List;
 

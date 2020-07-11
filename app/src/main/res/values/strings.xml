@@ -77,6 +77,7 @@
     <string name="item_name_label">名称</string>
     <string name="item_count_label">数量</string>
     <string name="spliter">spliter</string>
+    <string name="photot_of_bird">Photo of bird</string>
 
 
 </resources>
